@@ -2,24 +2,17 @@ package guru.springframework.config;
 
 import guru.springframework.examplebeans.FakeDataSource;
 import guru.springframework.examplebeans.FakeJmsBroker;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.PropertySource;
-import org.springframework.context.annotation.PropertySources;
-import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
-import org.springframework.core.env.Environment;
 
-@Configuration
-//@PropertySource({"classpath:datasource.properties", "classpath:jms.properties"}) --> gelijk aan onderstaande!!!!!
-@PropertySources({
-        @PropertySource("classpath:datasource.properties"),
-        @PropertySource("classpath:jms.properties")
-})
-public class MultiPropertiesConfig {
-    @Autowired
-    Environment env;
+/**
+ * Onderstaande voorbeeld gebruikt defatul properties van springboot -> application.propertes
+ * Het is niet nodig om @PropertySource te gebruiken.
+ * .yml file is ter (deels)vervanging van properties uit application.properties
+ * Naam van yml file moet zijn 'application.yml' - anders wordt het niet gevonden
+ */
+//@Configuration
+public class PropertyJamlConfig {
 
     @Value("${guru.username}")
     String user;
@@ -42,7 +35,7 @@ public class MultiPropertiesConfig {
     @Bean
     public FakeDataSource fakeDataSource(){
         FakeDataSource fakeDataSource = new FakeDataSource();
-        fakeDataSource.setUser(env.getProperty("MY_SYS_USERNAME"));
+        fakeDataSource.setUser(user);
         fakeDataSource.setPassword(password);
         fakeDataSource.setUrl(url);
         return fakeDataSource;
@@ -57,9 +50,4 @@ public class MultiPropertiesConfig {
         return jmsBroker;
     }
 
-    @Bean
-    public static PropertySourcesPlaceholderConfigurer properties(){
-        PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer =new PropertySourcesPlaceholderConfigurer();
-        return  propertySourcesPlaceholderConfigurer;
-    }
 }

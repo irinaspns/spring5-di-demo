@@ -1,0 +1,11 @@
+# Onderstaande properties die normaal gesproken staan in application.properties
+# Deze sintax is gelijk aan vars uit .properties gescheiden door punt
+# .yml kan vervangen alle of deels properties uit application.properties
+# application.properties gebruik springboot als default, dat betekent dat geen andere properties aanwezig moeten zijn
+# yml is een andere syntax voor properties file - zie datasource.properties om te vergelijken vars namen
+
+guru:
+  jms:
+    username: JMS Username
+    password: somepass
+    url: SomeUrl
